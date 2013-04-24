@@ -103,7 +103,7 @@ public class LruCache<K, V> extends LinkedHashMap<K ,V>{
 			
 			
 			if (CacheType.SIZE.toString().equals(strCacheType)){
-				if (value instanceof Byte){
+				if (value instanceof byte[]){
 					this.iCurrentSize+=((byte[])value).length;
 				}else{
 					throw new ClassCastException(ERROR_CLASS_CAST);
