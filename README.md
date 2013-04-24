@@ -19,7 +19,8 @@ This lib needs to depend on the following environment:
 
 LruCache is key/value based. 
 Therefore you need to tell LruCache what your key type is and what the type you want to cache.
-In this sample project, we use `String` as our key type and `Integer` as our value type.
+In the frist project, we use `String` as our key type and `Integer` as our value type. 
+The second project we use `byte[]` as our value type.
 
 Besides this, there are two parameters you need to set up.
 
