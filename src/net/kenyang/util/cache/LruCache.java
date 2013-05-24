@@ -64,7 +64,7 @@ public class LruCache<K, V> extends LinkedHashMap<K ,V>{
 		 */
 		NUMBER
 	}
-	private String strCacheType; 
+	private CacheType cacheType; 
 	
 	/**
 	 * 
@@ -78,10 +78,10 @@ public class LruCache<K, V> extends LinkedHashMap<K ,V>{
 			throw new IllegalArgumentException(ERROR_CAN_NOT_BE_NEGATIVE_NUMBER);
 		}
 		
-		strCacheType = type.toString();
+		cacheType = type;
 
 		// if you want to cache image, we need to calculate the total size of all the cahced image.
-		if (strCacheType.equals(CacheType.SIZE.toString())){
+		if (cacheType.equals(CacheType.SIZE)){
 			this.iMaxCacheByteSize = iSize;
 		}else{
 			this.iMaxCacheItem = iSize;
@@ -102,7 +102,7 @@ public class LruCache<K, V> extends LinkedHashMap<K ,V>{
 			}
 			
 			
-			if (CacheType.SIZE.toString().equals(strCacheType)){
+			if (CacheType.SIZE.equals(cacheType)){
 				if (value instanceof byte[]){
 					this.iCurrentSize+=((byte[])value).length;
 				}else{
@@ -129,14 +129,14 @@ public class LruCache<K, V> extends LinkedHashMap<K ,V>{
 	}
 	
 	private int fnGetMaxSize(){
-		return (CacheType.SIZE.toString().equals(strCacheType)) ? iMaxCacheByteSize:iMaxCacheItem;
+		return (CacheType.SIZE.equals(cacheType)) ? iMaxCacheByteSize:iMaxCacheItem;
 	}
 	
 	@Override
 	protected boolean removeEldestEntry(java.util.Map.Entry<K, V> eldest) {
 
 		if (fnGetMaxSize() < size()){
-			if (CacheType.SIZE.toString().equals(strCacheType)){
+			if (CacheType.SIZE.equals(cacheType)){
 				this.iCurrentSize = this.iCurrentSize - ((byte[])  eldest.getValue()).length;
 			}else{
 				this.iCurrentSize --;
